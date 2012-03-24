@@ -1,0 +1,52 @@
+<html> 
+<head> 
+<title>Welcome!</title> 
+<script language="JavaScript" type="text/javascript" src="jslib/jsbn.js"></script>
+<script language="JavaScript" type="text/javascript" src="jslib/jsbn2.js"></script>
+<script language="JavaScript" type="text/javascript" src="jslib/prng4.js"></script>
+<script language="JavaScript" type="text/javascript" src="jslib/rng.js"></script>
+<script language="JavaScript" type="text/javascript" src="client.js"></script>
+<script language="JavaScript" type="text/javascript" src="jquery.js"></script>
+</head> 
+
+<body> 
+	<h1>PIR toy system</h1> 
+    <form id="searchform" method="post"> 
+	<div> 
+        <label for="search_term">Search </label> 
+        <input type="text" name="search_term" id="search_term" /> 
+		<input type="submit" value="search" id="search_button" /> 
+	</div> 
+    </form> 
+    <div id="search_results"></div>
+	
+	<script type='text/javascript'>
+	$(document).ready(function(){
+		$("#search_results").slideUp();
+		
+		$("#search_button").click(function(e){
+			e.preventDefault();
+			ajax_search();
+		});
+		
+		$("#search_term").keyup(function(e){
+			e.preventDefault();
+			ajax_search();
+		});
+	});
+	function ajax_search() {
+		$("#search_results").show();
+		var search_val = $("#search_term").val();
+		$.post("http://justcc.s.3322.net/find.php", {search_term : search_val}, 
+			function(data) {
+				if (data.length > 0) {
+					$("#search_results").html(data);
+				}
+			});
+	}
+	</script>
+
+ 
+</body> 
+</html>
+

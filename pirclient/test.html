@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+
+<script language="JavaScript" type="text/javascript" src="jslib/jsbn.js"></script>
+<script language="JavaScript" type="text/javascript" src="jslib/jsbn2.js"></script>
+<script language="JavaScript" type="text/javascript" src="jslib/prng4.js"></script>
+<script language="JavaScript" type="text/javascript" src="jslib/rng.js"></script>
+<script language="JavaScript" type="text/javascript" src="client.js"></script>
+
+</head>
+<body>
+
+<table>
+	<tr>
+		<th>data</th>
+		<th>mod</th>
+	</tr>
+	<tr>
+		<td>33</td>
+		<td>49</td>
+	</tr>
+	<tr>
+		<td>23</td>
+		<td>29</td>
+	</tr>
+	<tr>
+		<td>49</td>
+		<td>83</td>
+	</tr>
+	<tr>
+		<td>45</td>
+		<td>81</td>
+	</tr>
+</table>
+
+<script language="JavaScript" type="text/javascript">
+
+var client = new pClient();
+var pi = {value:new BigInteger("49", 10), 
+		base:new BigInteger("7", 10), exp:new BigInteger("2", 10)};
+document.write("pi="+pi.value.toString());
+document.write("<br/>");
+
+
+var len = 12;
+var msg = client.generateQuery(pi, len);
+document.write("g=" + msg._g);
+document.write("<br/>");
+document.write("m=" + msg._m);
+document.write("<br/>");
+
+var e = new BigInteger("2736144", 10);
+var ge = msg._g.modPow(e, msg._m);
+document.write("ge=" + ge.toString());
+document.write("<br/>");
+
+var ans = client.extractAnswer(ge);
+document.write("ans=" + ans.toString());
+document.write("<br/>");
+
+var base = pi.base;
+var exp = pi.exp;
+var orderH = pi.value;
+var beta = ge.modPow(q, m);
+document.write("ge^q=" + beta.toString());
+document.write("<br/>");
+var ans = phSpecializedPholigHellman(h, beta, orderH, m, base, exp);
+document.write("ans=log_h ge^q= " + ans.toString());
+document.write("<br/>");
+
+</script>
+
+
+</body>
+</html>
