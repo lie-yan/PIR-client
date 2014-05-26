@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+  "name": "Element Focus",
+  "version": "1.0",
+  "description": "This extension provides a shortcut to set focus on user-specified elements.",
+  
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+	  {
+		  "matches": ["http://www.collinsdictionary.com/*"],
+		  "js": ["contentscript.js"]
+	  }
+  ],
+  "background": {
+	  "persistent": false,
+	  "scripts": ["background.js"]
+  },
+  "commands": {
+	  "set_focus": {
+		  "suggested_key": {"default": "Ctrl+Shift+P"},
+		  "description": "Set focus"
+	  }
+  },
+  "permissions": [
+	  "http://www.collinsdictionary.com/",
+	  "https://secure.flickr.com/"
+  ]
+}
